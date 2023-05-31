@@ -1,2 +1,2 @@
 # deedni
-A Job board inspired in `indeed`
+deedin is a job board inspired in `indeed`
