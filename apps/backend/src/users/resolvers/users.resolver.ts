@@ -3,6 +3,7 @@ import { UpdateUserDto } from '../dtos/update-user.dto';
 import { UsersService } from '../services/users.service';
 
 @Resolver('User')
+// @UseGuards(JwtAuthGuard)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 

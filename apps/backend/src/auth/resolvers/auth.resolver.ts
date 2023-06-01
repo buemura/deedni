@@ -7,6 +7,12 @@ import { AuthService } from '../services/auth.service';
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
+  // @Query('whoami')
+  // @UseGuards(AuthGuard)
+  // async me(@CurrentUser() user: User) {
+  //   return user;
+  // }
+
   @Mutation('registerUser')
   async register(@Args('registerInput') registerInput: RegisterInput) {
     return this.authService.register(registerInput);
@@ -16,9 +22,4 @@ export class AuthResolver {
   async login(@Args('loginInput') loginInput: LoginInput) {
     return this.authService.login(loginInput);
   }
-
-  // @Query('auth')
-  // findOne(@Args('id') id: number) {
-  //   return this.authService.login();
-  // }
 }
