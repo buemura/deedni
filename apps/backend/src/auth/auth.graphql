@@ -1,22 +1,32 @@
 type Auth {
-  # Example field (placeholder)
-  exampleField: Int
-}
-
-input CreateAuthInput {
-  # Example field (placeholder)
-  exampleField: Int
-}
-
-input UpdateAuthInput {
-  id: Int!
+  id: String
+  name: String
+  email: String
+  password: String
+  createdAt: String
+  updatedAt: String
 }
 
 type Query {
   auth: [Auth]!
 }
 
+type LoginResponse {
+  accessToken: String
+}
+
+input RegisterInput {
+  name: String
+  email: String
+  password: String
+}
+
+input LoginInput {
+  email: String
+  password: String
+}
+
 type Mutation {
-  createAuth(createAuthInput: CreateAuthInput!): Auth!
-  updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
+  registerUser(registerInput: RegisterInput!): Auth!
+  loginUser(loginInput: LoginInput!): LoginResponse!
 }
