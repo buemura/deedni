@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
@@ -10,10 +11,15 @@ import { UsersRepository } from '../repositories/users.repository';
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
+
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async findAll(): Promise<User[]> {
-    return this.usersRepository.findAll();
+    this.logger.log('executing findAll');
+    const users = await this.usersRepository.findAll();
+    this.logger.debug(`Found ${users.length} users`);
+    return users;
   }
 
   async findById(id: string): Promise<User> {
