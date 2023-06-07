@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { UpdateCompanyDto } from '../dto/update-company.dto';
+import { UpdateCompanyDto } from '../dtos/update-company.dto';
 import { CompaniesService } from '../services/companies.service';
 
 @Controller('companies')

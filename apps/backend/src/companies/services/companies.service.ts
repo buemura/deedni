@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { RegisterCompanyDto } from '../dto/register-company.dto';
-import { UpdateCompanyDto } from '../dto/update-company.dto';
+import { RegisterCompanyDto } from '../dtos/register-company.dto';
+import { UpdateCompanyDto } from '../dtos/update-company.dto';
 import { Company } from '../entities/company.entity';
 import { CompaniesRepository } from '../repositories/companies.repository';
 

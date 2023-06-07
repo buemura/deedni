@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { LoginCompanyDto } from 'src/companies/dto/login-company.dto';
-import { RegisterCompanyDto } from 'src/companies/dto/register-company.dto';
+import { LoginCompanyDto } from 'src/companies/dtos/login-company.dto';
+import { RegisterCompanyDto } from 'src/companies/dtos/register-company.dto';
 import { Company } from 'src/companies/entities/company.entity';
 import { User } from 'src/users/entities/user.entity';
 import { CurrentUser } from '../decorators/current-user.decorator';
