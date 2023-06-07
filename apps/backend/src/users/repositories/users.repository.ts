@@ -7,6 +7,6 @@ export abstract class UsersRepository {
   abstract findById(id: string): Promise<User>;
   abstract findByEmail(email: string): Promise<User>;
   abstract create(data: CreateUserDto): Promise<User>;
-  abstract update(data: UpdateUserDto): Promise<User>;
+  abstract update(id: string, data: UpdateUserDto): Promise<User>;
   abstract remove(id: string): Promise<User>;
 }
