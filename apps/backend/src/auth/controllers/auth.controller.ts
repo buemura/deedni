@@ -2,8 +2,7 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { LoginCompanyDto } from 'src/companies/dto/login-company.dto';
 import { RegisterCompanyDto } from 'src/companies/dto/register-company.dto';
 import { Company } from 'src/companies/entities/company.entity';
-import { User } from '../../users/entities/user.entity';
-import { CurrentSession } from '../decorators/current-session.decorator';
+import { User } from 'src/users/entities/user.entity';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { LoginUserDto } from '../dtos/login-user.dto';
 import { RegisterUserDto } from '../dtos/register-user.dto';
@@ -24,12 +23,6 @@ export class AuthController {
     return this.authService.loginUser(body);
   }
 
-  @Get('users/profile')
-  @UseGuards(JwtAuthGuard)
-  async getUserProfile(@CurrentUser() user: User) {
-    return user;
-  }
-
   @Post('companies/register')
   async registerCompany(@Body() body: RegisterCompanyDto) {
     return this.authService.registerCompany(body);
@@ -40,9 +33,9 @@ export class AuthController {
     return this.authService.loginCompany(body);
   }
 
-  @Get('companies/profile')
+  @Get('profile')
   @UseGuards(JwtAuthGuard)
-  async getCompanyProfile(@CurrentSession() company: Company) {
-    return company;
+  async getCompanyProfile(@CurrentUser() user: User | Company) {
+    return user;
   }
 }
