@@ -2,30 +2,33 @@ import { Injectable } from '@nestjs/common';
 import { RegisterCompanyDto } from '../dto/register-company.dto';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { Company } from '../entities/company.entity';
+import { CompaniesRepository } from '../repositories/companies.repository';
 
 @Injectable()
 export class CompaniesService {
+  constructor(private readonly companiesRepository: CompaniesRepository) {}
+
   async findAll(): Promise<Company[]> {
-    return [new Company()];
+    return this.companiesRepository.findAll();
   }
 
   async findById(id: string): Promise<Company> {
-    return new Company();
+    return this.companiesRepository.findById(id);
   }
 
   async findByEmail(email: string): Promise<Company> {
-    return new Company();
+    return this.companiesRepository.findByEmail(email);
   }
 
   async create(data: RegisterCompanyDto): Promise<Company> {
-    return new Company();
+    return this.companiesRepository.create(data);
   }
 
   async update(id: string, data: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+    return this.companiesRepository.update(id, data);
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} company`;
+    return this.companiesRepository.remove(id);
   }
 }

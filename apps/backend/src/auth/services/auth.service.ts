@@ -3,9 +3,9 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { ROLES } from 'src/common/enums/roles';
 import { LoginCompanyDto } from 'src/companies/dto/login-company.dto';
 import { RegisterCompanyDto } from 'src/companies/dto/register-company.dto';
 import { Company } from 'src/companies/entities/company.entity';
@@ -19,7 +19,6 @@ import { TokenPayload } from '../types/token-payload';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
     private readonly companiesService: CompaniesService,
@@ -31,19 +30,14 @@ export class AuthService {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const passwordMatches = bcrypt.compareSync(data.password, user.password);
-    if (!passwordMatches) {
+    const isPasswordValid = bcrypt.compareSync(data.password, user.password);
+    if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const expires = new Date();
-
-    expires.setSeconds(
-      expires.getSeconds() + this.configService.get('JWT_EXPIRATION'),
-    );
-
     const tokenPayload: TokenPayload = {
       sub: user.id,
+      role: ROLES.USER,
     };
 
     const accessToken = this.jwtService.sign(tokenPayload);
@@ -59,10 +53,9 @@ export class AuthService {
       throw new BadRequestException('Email already taken');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
     const user = await this.usersService.create({
       ...data,
-      password: hashedPassword,
+      password: bcrypt.hashSync(data.password, 10),
     });
 
     return user;
@@ -74,19 +67,14 @@ export class AuthService {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const passwordMatches = bcrypt.compareSync(data.password, company.password);
-    if (!passwordMatches) {
+    const isPasswordValid = bcrypt.compareSync(data.password, company.password);
+    if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const expires = new Date();
-
-    expires.setSeconds(
-      expires.getSeconds() + this.configService.get('JWT_EXPIRATION'),
-    );
-
     const tokenPayload: TokenPayload = {
       sub: company.id,
+      role: ROLES.COMPANY,
     };
 
     const accessToken = this.jwtService.sign(tokenPayload);
@@ -102,10 +90,9 @@ export class AuthService {
       throw new BadRequestException('Email already taken');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
     const company = await this.companiesService.create({
       ...data,
-      password: hashedPassword,
+      password: bcrypt.hashSync(data.password, 10),
     });
 
     return company;
