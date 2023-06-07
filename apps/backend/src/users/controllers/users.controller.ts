@@ -8,8 +8,8 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { User } from '../entities/user.entity';
 import { UsersService } from '../services/users.service';

@@ -3,10 +3,10 @@ import { LoginCompanyDto } from 'src/companies/dtos/login-company.dto';
 import { RegisterCompanyDto } from 'src/companies/dtos/register-company.dto';
 import { Company } from 'src/companies/entities/company.entity';
 import { User } from 'src/users/entities/user.entity';
-import { CurrentUser } from '../decorators/current-user.decorator';
+import { CurrentUser } from '../../decorators/current-user.decorator';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { LoginUserDto } from '../dtos/login-user.dto';
 import { RegisterUserDto } from '../dtos/register-user.dto';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { AuthService } from '../services/auth.service';
 
 @Controller('auth')

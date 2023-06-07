@@ -9,9 +9,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ROLES } from 'src/common/enums/roles';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { RolesGuard } from '../../auth/guards/company-role.guard';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { Roles } from '../../decorators/roles.decorator';
+import { RolesGuard } from '../../guards/company-role.guard';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { CreateJobDto } from '../dtos/create-job.dto';
 import { UpdateJobDto } from '../dtos/update-job.dto';
 import { JobsService } from '../services/jobs.service';

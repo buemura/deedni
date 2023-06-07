@@ -7,7 +7,7 @@ import {
   Patch,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { UpdateCompanyDto } from '../dtos/update-company.dto';
 import { CompaniesService } from '../services/companies.service';
 
