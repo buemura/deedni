@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import { compareSync, hashSync } from 'bcrypt';
 import { ROLES } from 'src/common/enums/roles';
 import { LoginCompanyDto } from 'src/companies/dtos/login-company.dto';
 import { RegisterCompanyDto } from 'src/companies/dtos/register-company.dto';
@@ -24,27 +24,31 @@ export class AuthService {
     private readonly companiesService: CompaniesService,
   ) {}
 
+  private generateToken(sub: string, role: ROLES) {
+    const tokenPayload: TokenPayload = {
+      sub,
+      role,
+    };
+
+    const accessToken = this.jwtService.sign(tokenPayload);
+    return {
+      id: sub,
+      accessToken,
+    };
+  }
+
   async loginUser(data: LoginUserDto) {
     const user = await this.usersService.findByEmail(data.email);
     if (!user) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const isPasswordValid = bcrypt.compareSync(data.password, user.password);
+    const isPasswordValid = compareSync(data.password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const tokenPayload: TokenPayload = {
-      sub: user.id,
-      role: ROLES.USER,
-    };
-
-    const accessToken = this.jwtService.sign(tokenPayload);
-    return {
-      userId: user.id,
-      accessToken,
-    };
+    return this.generateToken(user.id, ROLES.USER);
   }
 
   async registerUser(data: RegisterUserDto): Promise<User> {
@@ -55,7 +59,7 @@ export class AuthService {
 
     const user = await this.usersService.create({
       ...data,
-      password: bcrypt.hashSync(data.password, 10),
+      password: hashSync(data.password, 10),
     });
 
     return user;
@@ -67,21 +71,12 @@ export class AuthService {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const isPasswordValid = bcrypt.compareSync(data.password, company.password);
+    const isPasswordValid = compareSync(data.password, company.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const tokenPayload: TokenPayload = {
-      sub: company.id,
-      role: ROLES.COMPANY,
-    };
-
-    const accessToken = this.jwtService.sign(tokenPayload);
-    return {
-      companyId: company.id,
-      accessToken,
-    };
+    return this.generateToken(company.id, ROLES.COMPANY);
   }
 
   async registerCompany(data: RegisterCompanyDto): Promise<Company> {
@@ -92,7 +87,7 @@ export class AuthService {
 
     const company = await this.companiesService.create({
       ...data,
-      password: bcrypt.hashSync(data.password, 10),
+      password: hashSync(data.password, 10),
     });
 
     return company;
