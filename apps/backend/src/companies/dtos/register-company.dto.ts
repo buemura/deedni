@@ -5,17 +5,17 @@ export class RegisterCompanyDto {
   name: string;
 
   @IsString()
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  password: string;
+
+  @IsString()
   @IsOptional()
   description: string;
 
   @IsString()
   @IsOptional()
   profileUrl: string;
-
-  @IsString()
-  @IsEmail()
-  owner: string;
-
-  @IsString()
-  password: string;
 }

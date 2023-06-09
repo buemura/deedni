@@ -21,7 +21,7 @@ export class PrismaCompaniesRepository implements CompaniesRepository {
 
   async findByEmail(email: string): Promise<Company> {
     return this.prisma.company.findFirst({
-      where: { owner: email },
+      where: { email },
     });
   }
 

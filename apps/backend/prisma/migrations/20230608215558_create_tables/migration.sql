@@ -12,11 +12,11 @@ CREATE TABLE "users" (
 CREATE TABLE "companies" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "description" TEXT,
     "profile_url" TEXT,
     "rating" REAL DEFAULT 0,
-    "owner" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );
@@ -49,4 +49,4 @@ CREATE TABLE "jobs" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "companies_owner_key" ON "companies"("owner");
+CREATE UNIQUE INDEX "companies_email_key" ON "companies"("email");

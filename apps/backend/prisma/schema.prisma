@@ -23,11 +23,11 @@ model User {
 model Company {
   id          String     @default(uuid()) @id
   name        String
+  email       String     @unique 
+  password    String
   description String?
   profileUrl  String?    @map("profile_url")
   rating      Float?     @default(0)
-  owner       String     @unique 
-  password    String
   createdAt   DateTime   @default(now()) @map("created_at")
   updatedAt   DateTime   @updatedAt @map("updated_at")
 

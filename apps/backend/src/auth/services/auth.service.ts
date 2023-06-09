@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   async loginCompany(data: LoginCompanyDto) {
-    const company = await this.companiesService.findByEmail(data.owner);
+    const company = await this.companiesService.findByEmail(data.email);
     if (!company) {
       throw new UnauthorizedException('Invalid Credentials');
     }
@@ -80,7 +80,7 @@ export class AuthService {
   }
 
   async registerCompany(data: RegisterCompanyDto): Promise<Company> {
-    const companyExists = await this.companiesService.findByEmail(data.owner);
+    const companyExists = await this.companiesService.findByEmail(data.email);
     if (companyExists) {
       throw new BadRequestException('Email already taken');
     }
