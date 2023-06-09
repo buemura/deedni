@@ -1,4 +1,5 @@
 import Header from './components/Header';
+import Jobs from './components/Jobs';
 import Search from './components/Search';
 
 export default function App() {
@@ -10,6 +11,8 @@ export default function App() {
         <Search />
       </div>
       <div className="mt-14 border-b" />
+
+      <Jobs />
     </main>
   );
 }
