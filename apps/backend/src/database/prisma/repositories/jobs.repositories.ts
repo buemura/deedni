@@ -11,7 +11,11 @@ export class PrismaJobsRepository implements JobsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findMany(options?: JobsQueryOptionsDto): Promise<Job[]> {
-    return this.prisma.job.findMany();
+    return this.prisma.job.findMany({
+      include: {
+        company: true,
+      },
+    });
   }
 
   async findById(id: number): Promise<Job> {

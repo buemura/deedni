@@ -6,7 +6,11 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     const request = context.switchToHttp().getRequest();
     const id = request.params?.id;
 
-    if (!user || user.id !== id) {
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    if (id && id !== !user.id) {
       throw new UnauthorizedException();
     }
 
