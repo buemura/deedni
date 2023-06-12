@@ -30,6 +30,7 @@ export class PrismaJobsRepository implements JobsRepository {
         companyId: data.companyId,
         title: data.title,
         description: data.description,
+        location: data.location,
       },
     });
   }

@@ -25,9 +25,9 @@ export class JobsController {
     return this.jobsService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.jobsService.findById(+id);
+  @Get(':jobId')
+  async findOne(@Param('jobId') jobId: string) {
+    return this.jobsService.findById(+jobId);
   }
 
   @Post()
@@ -37,17 +37,20 @@ export class JobsController {
     return this.jobsService.create(data);
   }
 
-  @Patch(':id')
+  @Patch(':jobId')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(ROLES.COMPANY)
-  async update(@Param('id') id: string, @Body() updateJobDto: UpdateJobDto) {
-    return this.jobsService.update(+id, updateJobDto);
+  async update(
+    @Param('jobId') jobId: string,
+    @Body() updateJobDto: UpdateJobDto,
+  ) {
+    return this.jobsService.update(+jobId, updateJobDto);
   }
 
-  @Delete(':id')
+  @Delete(':jobId')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(ROLES.COMPANY)
-  async remove(@Param('id') id: string) {
-    return this.jobsService.remove(+id);
+  async remove(@Param('jobId') jobId: string) {
+    return this.jobsService.remove(+jobId);
   }
 }

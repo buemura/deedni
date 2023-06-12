@@ -12,4 +12,8 @@ export class CreateJobDto {
   @IsNotEmpty()
   @IsString()
   description: string;
+
+  @IsNotEmpty()
+  @IsString()
+  location: string;
 }

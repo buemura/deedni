@@ -3,6 +3,7 @@ export class Job {
   companyId: string;
   title: string;
   description: string;
+  location: string;
   createdAt: Date;
   updatedAt: Date;
 }
