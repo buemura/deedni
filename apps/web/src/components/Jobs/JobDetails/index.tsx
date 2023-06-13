@@ -3,7 +3,7 @@ import { JobDetailHeader } from './JobDetailHeader';
 import { JobDetailSection } from './JobDetailSection';
 
 export interface JobDetailProps {
-  selectedJob?: Job;
+  selectedJob: Job | null;
 }
 
 export default function JobDetails({ selectedJob }: JobDetailProps) {

@@ -1,7 +1,14 @@
 const baseUrl = 'http://localhost:8080';
 
-const getJobs = async () => {
-  const res = await fetch(`${baseUrl}/api/jobs`);
+interface getJobsQuery {
+  title?: string;
+  location?: string;
+}
+
+const getJobs = async ({ title, location }: getJobsQuery) => {
+  const res = await fetch(
+    `${baseUrl}/api/jobs?title=${title}&location=${location}`
+  );
   return res.json();
 };
 

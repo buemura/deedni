@@ -1,25 +1,25 @@
-import { useState } from 'react';
+import { useSearchStore } from '../../stores/searchStore';
 import SearchButton from './SearchButton';
 import SearchInput from './SearchInput';
 
 export default function Search() {
-  const [jobTitleSearch, setJobTitleSearch] = useState('');
-  const [citySearch, setCitySearch] = useState('');
+  const { searchTitle, searchLocation, setSearchTitle, setSearchLocation } =
+    useSearchStore();
 
   return (
     <div className="flex items-center justify-center gap-4">
       <SearchInput
         context="What"
         placeholder="Job title, keyword, or company"
-        searchContent={jobTitleSearch}
-        setSearchContent={setJobTitleSearch}
+        searchContent={searchTitle}
+        setSearchContent={setSearchTitle}
       />
 
       <SearchInput
         context="Where"
         placeholder="City, state, country"
-        searchContent={citySearch}
-        setSearchContent={setCitySearch}
+        searchContent={searchLocation}
+        setSearchContent={setSearchLocation}
       />
 
       <SearchButton />

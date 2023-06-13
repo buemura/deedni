@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { jobsService } from '../../services/jobs-service';
-import { Job } from '../../types/job';
+import { useJobsStore } from '../../stores/jobsStore';
+import { useSearchStore } from '../../stores/searchStore';
 import JobDetails from './JobDetails';
 import JobList from './JobList';
 import JobSearchMeta from './JobSearchMeta';
 
 export default function Jobs() {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [selectedJob, setSelectedJob] = useState<Job>();
+  const { jobs, setJobs, selectedJob, setSelectedJob } = useJobsStore();
+  const { searchTitle, searchLocation } = useSearchStore();
+
+  // const [selectedJob, setSelectedJob] = useState<Job>();
 
   const fetchJobs = async () => {
-    const result = await jobsService.getJobs();
+    const result = await jobsService.getJobs({
+      title: searchTitle,
+      location: searchLocation
+    });
     setJobs(result);
     setSelectedJob(result[0]);
   };

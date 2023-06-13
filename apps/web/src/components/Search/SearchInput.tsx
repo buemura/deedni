@@ -4,7 +4,7 @@ interface SearchInputProps {
   context: string;
   placeholder: string;
   searchContent: string;
-  setSearchContent: React.Dispatch<React.SetStateAction<string>>;
+  setSearchContent: (value: string) => void;
 }
 
 export default function SearchInput({
