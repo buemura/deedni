@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ROLES } from 'src/common/enums/roles';
@@ -13,6 +14,7 @@ import { Roles } from '../../decorators/roles.decorator';
 import { RolesGuard } from '../../guards/company-role.guard';
 import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { CreateJobDto } from '../dtos/create-job.dto';
+import { JobsQueryOptionsDto } from '../dtos/job-query-options.dto';
 import { UpdateJobDto } from '../dtos/update-job.dto';
 import { JobsService } from '../services/jobs.service';
 
@@ -21,8 +23,8 @@ export class JobsController {
   constructor(private readonly jobsService: JobsService) {}
 
   @Get()
-  async findAll() {
-    return this.jobsService.findAll();
+  async findMany(@Query() query: JobsQueryOptionsDto) {
+    return this.jobsService.findMany(query);
   }
 
   @Get(':jobId')

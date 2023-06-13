@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateJobDto } from '../dtos/create-job.dto';
+import { JobsQueryOptionsDto } from '../dtos/job-query-options.dto';
 import { UpdateJobDto } from '../dtos/update-job.dto';
 import { JobsRepository } from '../repositories/jobs.repository';
 
@@ -7,8 +8,8 @@ import { JobsRepository } from '../repositories/jobs.repository';
 export class JobsService {
   constructor(private readonly jobsRepository: JobsRepository) {}
 
-  async findAll() {
-    return this.jobsRepository.findMany();
+  async findMany(query: JobsQueryOptionsDto) {
+    return this.jobsRepository.findMany(query);
   }
 
   async findById(id: number) {

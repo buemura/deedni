@@ -11,10 +11,43 @@ export class PrismaJobsRepository implements JobsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findMany(options?: JobsQueryOptionsDto): Promise<Job[]> {
+    const query = {} as any;
+
+    if (options.title) {
+      const terms = options.title.trim().split(' ');
+
+      if (terms.length > 1) {
+        query.OR = [];
+        terms.forEach((term) => {
+          query.OR.push({
+            title: {
+              contains: term,
+            },
+          });
+        });
+      } else {
+        query.title = {
+          contains: options.title,
+        };
+      }
+    }
+
+    if (options.location) {
+      query.location = {
+        contains: options.location,
+      };
+    }
+
     return this.prisma.job.findMany({
+      where: query,
       include: {
         company: true,
       },
+      orderBy: [
+        {
+          createdAt: 'desc',
+        },
+      ],
     });
   }
 
