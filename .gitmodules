@@ -1,0 +1,6 @@
+[submodule "deedni-frontend"]
+	path = deedni-frontend
+	url = https://github.com/buemura/deedni-frontend.git
+[submodule "deedni-backend"]
+	path = deedni-backend
+	url = https://github.com/buemura/deedni-backend.git
